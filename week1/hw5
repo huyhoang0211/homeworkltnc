@@ -1,0 +1,23 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int solonnhat ( int a, int b, int c, int d)
+{
+    int i = -100;
+    if ( i < a) i = a;
+    if ( i < b) i = b;
+    if ( i < c) i = c;
+    if ( i<d ) i =d;
+    return i;
+}
+
+
+int main() {
+    int a,b,c,d;
+    cin >> a >>b>>c>>d;
+    cout << solonnhat( a,  b,  c,  d);  
+    return 0;
+}
