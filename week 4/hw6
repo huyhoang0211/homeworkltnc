@@ -14,42 +14,25 @@ vector<string> split(const string &);
  *  1. INTEGER_ARRAY a
  *  2. INTEGER_ARRAY b
  */
-std::vector<int>Factors(int num) {
-    std::vector<int> factors;
- for (int i = 1; i <= num; i++) {
-        if (num % i == 0) {
-            factors.push_back(i);
-        }
-    }
-    return factors;
-}
 
-int getTotalX(vector<int> secondArray, vector<int> firstArray) {
-    std::vector<int> firstFactors = {1};
-    for (int a : firstArray) {
-        std::vector<int> factors = Factors(a);
-        firstFactors.insert(firstFactors.end(), factors.begin(), factors.end());
-    }
-    std::vector<int> secondMultiples;
-    for(int b : secondArray) {
-        for (int i = 1; i <= 100; i++) {
-            secondMultiples.push_back(b * i);
+int getTotalX(vector<int> a, vector<int> b) {
+int count = 0;
+    for(int i=1; i<=100;i++) {
+        int flag = 1;
+        for(int x=0;x<a.size();x++) {
+            if(i % a[x] != 0) flag = 0;
         }
+        for(int x=0;x<b.size();x++) {
+            if(b[x] % i != 0) flag = 0;
+        }
+        if(flag == 1) count ++;
     }
-     std::vector<int> result;
-    std::sort(firstFactors.begin(), firstFactors.end());
-    std::sort(secondMultiples.begin(), secondMultiples.end());
-    std::set_intersection(firstFactors.begin(), firstFactors.end(), secondMultiples.begin(), secondMultiples.end(), std::back_inserter(result));
-    for (int num : firstFactors) {
-        std::cout << num << " ";
-    }
-    return result.size();
-
+    return count;
 }
 
 int main()
 {
-  //  ofstream fout(getenv("OUTPUT_PATH"));
+    ofstream fout(getenv("OUTPUT_PATH"));
 
     string first_multiple_input_temp;
     getline(cin, first_multiple_input_temp);
@@ -88,9 +71,9 @@ int main()
 
     int total = getTotalX(arr, brr);
 
-    cout << total << "\n";
+    fout << total << "\n";
 
-    //fout.close();
+    fout.close();
 
     return 0;
 }
