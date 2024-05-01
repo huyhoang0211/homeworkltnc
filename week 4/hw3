@@ -11,20 +11,35 @@ string rtrim(const string &);
  * The function is expected to return an INTEGER.
  * The function accepts STRING s as parameter.
  */
-
+bool checkPalindrome(const string& s, int start, int end) {
+    while (start < end) {
+        if (s[start] != s[end])
+            return false;
+        start++;
+        end--;
+    }
+    return true;
+}
 int palindromeIndex(string s) {
-    int left = 0, right = s.length()-1;
-    while(left < right){
-        if (s[left] == s[right]){
-            left++;
-            right--;
-        } else {
-            if (s[left+1] == s[right] && s[left+2] == s[right-1]) return left;
-            if (s[left]==s[right-1]&&s[left+1]==s[right-2]) return right;
-        }
+int n = s.size();
+
+    if (checkPalindrome(s, 0, n - 1)) {
+        return -1;
     }
 
-    return -1;
+    int left = 0, right = n - 1;
+    while (left < right) {
+        if (s[left] != s[right]) {
+            if (checkPalindrome(s, left + 1, right))
+                return left;
+            else if (checkPalindrome(s, left, right - 1))
+                return right;
+        }
+        left++;
+        right--;
+    }
+
+    return 0;
 }
 
 int main()
